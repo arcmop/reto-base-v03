@@ -1,6 +1,6 @@
 set -e 
 
-eval $("C:\Program Files\Docker\Docker\Resources\bin\docker-machine.exe" env docker-master)
+eval $(docker-machine env docker-eps)
 
 RUTABASE=$PWD
 
@@ -25,7 +25,8 @@ docker-compose up -d
 
 #Test
 sleep 10
-wget -q -O - http://192.168.99.100:3081/retoibm/sumar/80/300
+DOCKERMCHIP=$(docker-machine ip docker-eps)
+wget -q -O - http://$DOCKERMCHIP:3081/retoibm/sumar/80/300
 
 #Monitoring
 docker-compose ps
