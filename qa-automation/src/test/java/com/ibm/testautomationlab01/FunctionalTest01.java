@@ -59,17 +59,21 @@ public class FunctionalTest01 {
 
         WebDriver phamJSExecutor = new PhantomJSDriver();
 
-        phamJSExecutor.get("http://localhost:8011/qaautomationlab");
-        phamJSExecutor.findElement(By.id("txt01")).click();
-        phamJSExecutor.findElement(By.id("txt01")).sendKeys("80");
-        phamJSExecutor.findElement(By.id("txt02")).click();
-        phamJSExecutor.findElement(By.id("txt02")).sendKeys("20");
-        phamJSExecutor.findElement(By.id("btnsum")).click();
+        phamJSExecutor.get("http://192.168.99.101:8090/index.html");
+        phamJSExecutor.findElement(By.id("sumando01")).click();
+        phamJSExecutor.findElement(By.id("sumando01")).sendKeys("58");
+        phamJSExecutor.findElement(By.id("sumando02")).click();
+        phamJSExecutor.findElement(By.id("sumando02")).sendKeys("95");
+        phamJSExecutor.findElement(By.id("btnsumar")).click();
 
         WebElement we = phamJSExecutor.findElement(By.id("txtresult"));
 
         try {
-            Assert.assertEquals("100", we.getAttribute("value"));
+            String result = we.getAttribute("value");
+            result = result.split("=")[1];
+            result = result.substring(0, result.indexOf("\""));
+            System.out.println("uuuuuuu=" + result);
+            Assert.assertEquals("10", result);
         } catch (Exception e) {
         } finally {
             phamJSExecutor.quit();
