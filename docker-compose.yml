@@ -9,24 +9,31 @@ services:
       POSTGRES_PASSWORD: pgpassword
       POSTGRES_DB: pgdatabase
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - overlay01
+      - netmsbackend
   java-microservicio-01:
     image: test01:v01
     ports:
-      - "3081:3081"
+      - "3081"
+    depends_on:
+      - postgres-service-container
     networks:
-      - overlay01
+      - netlbfront
+      - netmsbackend
   load-balancer:
     build:
       context: $PWD/nginx
+    restart: always
     command: [nginx-debug, '-g', 'daemon off;']
     ports:
       - "8089:80"
+    depends_on:
+      - java-microservicio-01
     networks:
-      - overlay01
+      - netlbfront
 networks:
-    overlay01:
+    netlbfront:
+    netmsbackend:
