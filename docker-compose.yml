@@ -23,6 +23,15 @@ services:
     networks:
       - netlbfront
       - netmsbackend
+  java-microservicio-02:
+    image: test01:v01
+    ports:
+      - "3081"
+    depends_on:
+      - postgres-service-container
+    networks:
+      - netlbfront
+      - netmsbackend
   load-balancer:
     build:
       context: $PWD/nginx
@@ -32,8 +41,16 @@ services:
       - "8089:80"
     depends_on:
       - java-microservicio-01
+      - java-microservicio-02
     networks:
       - netlbfront
+  web-ui:
+    build:
+      context: $PWD/frontend-ui
+    restart: always
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - "8090:80"
 networks:
     netlbfront:
     netmsbackend:
