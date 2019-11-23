@@ -26,16 +26,16 @@ public class FunctionalTest01 {
 
     }
 
-    //@Test
+    @Test
     public void test01() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "C:\\Aplicaciones\\chromedriver_win32\\chromedriver.exe");
         WebDriver chromeExecutor = new ChromeDriver();
 
         chromeExecutor.get("file:///C:/Users/mastermind/TALLER_EPSGRAU/devops04/reto-base-v03/frontend-ui/index.html");
         chromeExecutor.findElement(By.id("sumando01")).click();
-        chromeExecutor.findElement(By.id("sumando01")).sendKeys("10");
+        chromeExecutor.findElement(By.id("sumando01")).sendKeys("160");
         chromeExecutor.findElement(By.id("sumando02")).click();
-        chromeExecutor.findElement(By.id("sumando02")).sendKeys("20");
+        chromeExecutor.findElement(By.id("sumando02")).sendKeys("209");
         chromeExecutor.findElement(By.id("btnsumar")).click();
 
         WebElement we = chromeExecutor.findElement(By.id("txtresult"));
@@ -45,7 +45,7 @@ public class FunctionalTest01 {
             String result = we.getAttribute("value");
             result = result.split("=")[1];
             result = result.substring(0, result.indexOf("\""));
-            Assert.assertEquals("30", result);
+            Assert.assertEquals("369", result);
         } catch (Exception e) {
         } finally {
             chromeExecutor.quit();
