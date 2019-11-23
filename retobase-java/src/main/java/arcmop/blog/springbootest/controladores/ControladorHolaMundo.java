@@ -1,5 +1,6 @@
 package arcmop.blog.springbootest.controladores;
 
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,8 +29,10 @@ public class ControladorHolaMundo {
             resultado = sum01 + sum02;
             conn.createStatement().executeUpdate("insert into resultados(numero01,numero02,resultado) values (" + sum01 + "," + sum02 + "," + resultado + ")");
             conn.close();
-            return Collections.singletonMap("resultado", String.valueOf(resultado));
-        } catch (SQLException e) {
+            InetAddress ip = InetAddress.getLocalHost();
+            String hostname = ip.getHostName();
+            return Collections.singletonMap("resultado", hostname + "=" + String.valueOf(resultado));
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return Collections.singletonMap("resultado", String.valueOf(resultado));
