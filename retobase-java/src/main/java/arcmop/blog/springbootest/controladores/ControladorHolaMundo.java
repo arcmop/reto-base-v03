@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping
 public class ControladorHolaMundo {
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/sumar/{sum01}/{sum02}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     Map saludar(@PathVariable("sum01") Integer sum01, @PathVariable("sum02") Integer sum02) {
