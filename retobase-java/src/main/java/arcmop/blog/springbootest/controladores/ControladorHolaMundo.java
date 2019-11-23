@@ -16,7 +16,7 @@ public class ControladorHolaMundo {
     @RequestMapping(value = "/sumar/{sum01}/{sum02}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     Map saludar(@PathVariable("sum01") Integer sum01, @PathVariable("sum02") Integer sum02) {
-        String url = "jdbc:postgresql://192.168.99.100:5432/pgdatabase";
+        String url = "jdbc:postgresql://postgres-service-container:5432/pgdatabase";
         String user = "pguser01";
         String password = "pgpassword";
 

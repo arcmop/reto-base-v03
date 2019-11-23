@@ -21,12 +21,16 @@ cd ..
 
 #Deployment
 docker-compose down --remove-orphans
+docker-compose build
 docker-compose up -d
 
 #Test
-sleep 10
+#sleep 10
+set +e
 DOCKERMCHIP=$(docker-machine ip docker-eps)
-wget -q -O - http://$DOCKERMCHIP:3081/retoibm/sumar/80/300
+#wget -q -O - "http://$DOCKERMCHIP:3081/retoibm/sumar/80/300"
+wget -q -O - "http://$DOCKERMCHIP:8089/retoibm/sumar/80/300"
+#wget -q -O - http://fa0b85a6.ngrok.io/retoibm/sumar/80/96
 
 #Monitoring
 docker-compose ps
