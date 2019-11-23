@@ -31,19 +31,21 @@ public class FunctionalTest01 {
         System.setProperty("webdriver.chrome.driver", "C:\\Aplicaciones\\chromedriver_win32\\chromedriver.exe");
         WebDriver chromeExecutor = new ChromeDriver();
 
-        chromeExecutor.get("http://localhost:8011/qaautomationlab");
-        chromeExecutor.findElement(By.id("txt01")).click();
-        chromeExecutor.findElement(By.id("txt01")).sendKeys("10");
-        chromeExecutor.findElement(By.id("txt02")).click();
-        chromeExecutor.findElement(By.id("txt02")).sendKeys("20");
-        chromeExecutor.findElement(By.id("btnsum")).click();
+        chromeExecutor.get("file:///C:/Users/mastermind/TALLER_EPSGRAU/devops04/reto-base-v03/frontend-ui/index.html");
+        chromeExecutor.findElement(By.id("sumando01")).click();
+        chromeExecutor.findElement(By.id("sumando01")).sendKeys("10");
+        chromeExecutor.findElement(By.id("sumando02")).click();
+        chromeExecutor.findElement(By.id("sumando02")).sendKeys("20");
+        chromeExecutor.findElement(By.id("btnsumar")).click();
 
         WebElement we = chromeExecutor.findElement(By.id("txtresult"));
 
         try {
             Thread.sleep(3000);
-
-            Assert.assertEquals("30", we.getAttribute("value"));
+            String result = we.getAttribute("value");
+            result = result.split("=")[1];
+            result = result.substring(0, result.indexOf("\""));
+            Assert.assertEquals("30", result);
         } catch (Exception e) {
         } finally {
             chromeExecutor.quit();
