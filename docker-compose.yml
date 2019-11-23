@@ -20,5 +20,13 @@ services:
       - "3081:3081"
     networks:
       - overlay01
+  load-balancer:
+    build:
+      context: $PWD/nginx
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - "8089:80"
+    networks:
+      - overlay01
 networks:
     overlay01:
