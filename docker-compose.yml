@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  postgres-service-container:
+    image: postgres:9.4-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: pguser01
+      POSTGRES_PASSWORD: pgpassword
+      POSTGRES_DB: pgdatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - overlay01
+  java-microservicio-01:
+    image: test01:v01
+    ports:
+      - "3081:3081"
+    networks:
+      - overlay01
+networks:
+    overlay01:
