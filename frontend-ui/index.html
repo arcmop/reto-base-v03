@@ -7,7 +7,7 @@
 		var xmlHttp = new XMLHttpRequest();
 		xmlHttp.onreadystatechange = function() { 
 			if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-				document.getElementById("resultado").innerHTML=xmlHttp.responseText;
+				document.getElementById("txtresult").value=xmlHttp.responseText;
 			}
 		}
 		var sumando01 = document.getElementById("sumando01").value;
@@ -22,6 +22,7 @@
 		<input type="number" id="sumando01"/>
 		<input type="number" id="sumando02"/>
 		<button id="btnsumar" onClick="sumar()">SUMAR</button>
+    <input type="text" id="txtresult"/>
 		<br>
 		<p id="resultado"></p>
 	</div>

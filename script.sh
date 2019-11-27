@@ -24,13 +24,17 @@ docker-compose down --remove-orphans
 docker-compose build
 docker-compose up -d
 
+#docker-compose down --remove-orphans && docker-compose build && docker-compose up -d
+
 #Test
-#sleep 10
+sleep 20
 set +e
+echo "Extract IP"
 DOCKERMCHIP=$(docker-machine ip docker-eps)
-#wget -q -O - "http://$DOCKERMCHIP:3081/retoibm/sumar/80/300"
-wget -q -O - "http://$DOCKERMCHIP:8089/retoibm/sumar/80/300"
-#wget -q -O - http://fa0b85a6.ngrok.io/retoibm/sumar/80/96
+URLTEST="http://${DOCKERMCHIP}:8089/retoibm/sumar/180/300"
+echo "Test endpoint $URLTEST"
+wget -q -O - "${URLTEST}"
+echo ""
 
 #Monitoring
 docker-compose ps
