@@ -20,7 +20,7 @@ docker build -t test01:v01 .
 cd ..
 
 #Deployment
-docker-compose down --remove-orphans
+docker-compose down --rmi local --remove-orphans
 docker-compose build
 docker-compose up -d
 
@@ -30,10 +30,11 @@ docker-compose up -d
 sleep 20
 set +e
 echo "Extract IP"
-DOCKERMCHIP=$(docker-machine ip docker-eps)
+DOCKERMCHIP=$(docker-machine ip docker-eps) || $(echo 127.0.0.1)
 URLTEST="http://${DOCKERMCHIP}:8089/retoibm/sumar/180/300"
 echo "Test endpoint $URLTEST"
-wget -q -O - "${URLTEST}"
+#wget -q -O - "${URLTEST}"
+curl -Ss -X GET "${URLTEST}" | jq
 echo ""
 
 #Monitoring
