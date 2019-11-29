@@ -30,25 +30,24 @@ docker-compose down --rmi local --remove-orphans
 docker-compose build
 docker-compose up -d
 
-#docker-compose down --remove-orphans && docker-compose build && docker-compose up -d
+#Monitoring
+docker-compose ps
 
 #Test
 URLTEST="http://${DOCKERMCHIP}:8089/retoibm/sumar/180/300"
 
 echo "Test endpoint $URLTEST"
 set +e
-RETRYCOUNTER=5
+RETRYCOUNTER=10
 while [ $RETRYCOUNTER -gt 0 ]
 do
 #wget -q -O - "${URLTEST}"
 curl -Ss -X GET $URLTEST | jq
+if [ $? -eq 0 ];then
+   break
+fi
 RETRYCOUNTER=$[$RETRYCOUNTER-1]
-sleep 2
+sleep 10
 done
-
-echo "End endpoint"
-
-#Monitoring
-docker-compose ps
 
 echo "Proceso Completo"
