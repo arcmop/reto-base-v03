@@ -31,7 +31,7 @@ public class FunctionalTest01 {
         System.setProperty("webdriver.chrome.driver", "C:\\Aplicaciones\\chromedriver_win32\\chromedriver.exe");
         WebDriver chromeExecutor = new ChromeDriver();
 
-        chromeExecutor.get("file:///C:/Users/mastermind/TALLER_EPSGRAU/devops04/reto-base-v03/frontend-ui/index.html");
+        chromeExecutor.get("http://192.168.99.101:8090/");
         chromeExecutor.findElement(By.id("sumando01")).click();
         chromeExecutor.findElement(By.id("sumando01")).sendKeys("160");
         chromeExecutor.findElement(By.id("sumando02")).click();
@@ -43,8 +43,6 @@ public class FunctionalTest01 {
         try {
             Thread.sleep(3000);
             String result = we.getAttribute("value");
-            result = result.split("=")[1];
-            result = result.substring(0, result.indexOf("\""));
             Assert.assertEquals("369", result);
         } catch (Exception e) {
         } finally {
@@ -52,14 +50,14 @@ public class FunctionalTest01 {
         }
     }
 
-    //@Test
+    @Test
     public void test02() throws InterruptedException {
         File file = new File("C:\\Aplicaciones\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
         System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
 
         WebDriver phamJSExecutor = new PhantomJSDriver();
 
-        phamJSExecutor.get("http://192.168.99.101:8090/index.html");
+        phamJSExecutor.get("http://192.168.99.101:8090/");
         phamJSExecutor.findElement(By.id("sumando01")).click();
         phamJSExecutor.findElement(By.id("sumando01")).sendKeys("58");
         phamJSExecutor.findElement(By.id("sumando02")).click();
@@ -69,12 +67,11 @@ public class FunctionalTest01 {
         WebElement we = phamJSExecutor.findElement(By.id("txtresult"));
 
         try {
+            Thread.sleep(3000);
             String result = we.getAttribute("value");
-            result = result.split("=")[1];
-            result = result.substring(0, result.indexOf("\""));
-            System.out.println("uuuuuuu=" + result);
-            Assert.assertEquals("10", result);
+            Assert.assertEquals("153", result);
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             phamJSExecutor.quit();
         }
