@@ -5,9 +5,9 @@ services:
     image: postgres:9.4-alpine
     restart: always
     environment:
-      POSTGRES_USER: pguser01
-      POSTGRES_PASSWORD: pgpassword
-      POSTGRES_DB: pgdatabase
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PWD}
+      POSTGRES_DB: ${PG_DB}
     ports:
       - "5432"
     volumes:
@@ -16,6 +16,12 @@ services:
       - netmsbackend
   java-microservicio-01:
     image: test01:v01
+    environment:
+      - PG_USER
+      - PG_PWD
+      - PG_DB
+      - PG_SERVER=postgres-service-container
+      - PG_SERVER_PORT=5432
     ports:
       - "3081"
     depends_on:
@@ -25,6 +31,12 @@ services:
       - netmsbackend
   java-microservicio-02:
     image: test01:v01
+    environment:
+      - PG_USER
+      - PG_PWD
+      - PG_DB
+      - PG_SERVER=postgres-service-container
+      - PG_SERVER_PORT=5432
     ports:
       - "3081"
     depends_on:
