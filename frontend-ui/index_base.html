@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script>
+      function sumar()
+      {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+          if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+            var result = JSON.parse(xmlHttp.responseText);
+            document.getElementById("txtresult").value=result.resultado;
+          }
+        }
+        var sumando01 = document.getElementById("sumando01").value;
+        var sumando02 = document.getElementById("sumando02").value;
+        xmlHttp.open("GET", "http://SERVER_TO_TEST:8089/retoibm/sumar/"+sumando01+"/"+sumando02, true); 
+        xmlHttp.send(null);
+      }
+    </script>
+  </head>
+ <body>
+  <p style="text-align:center;">Taller Microservicios 03
+  </p>
+  <div style="width:600;margin-left:auto;margin-right:auto;">
+    <input style="width:120" type="number" id="sumando01">
+    <input style="width:120" type="number" id="sumando02">
+    <button style="width:100" id="btnsumar" onclick="sumar()">SUMAR</button>
+    <input style="width:160" type="text" id="txtresult">
+  </div>
+ </body>
+</html>

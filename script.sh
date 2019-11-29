@@ -5,7 +5,7 @@ export PG_PWD=pgpassword
 export PG_DB=pgdatabase
 
 eval $(docker-machine env docker-eps)
-
+DOCKERMCHIP=$(docker-machine ip docker-eps || echo "127.0.0.1")
 RUTABASE=$PWD
 
 #Clean workspace
@@ -23,6 +23,8 @@ cd docker-ms
 docker build -t test01:v01 .
 cd ..
 
+sed "s/SERVER_TO_TEST/${DOCKERMCHIP}/g" ${RUTABASE}/frontend-ui/index_base.html > ${RUTABASE}/frontend-ui/index.html
+
 #Deployment
 docker-compose down --rmi local --remove-orphans
 docker-compose build
@@ -31,15 +33,20 @@ docker-compose up -d
 #docker-compose down --remove-orphans && docker-compose build && docker-compose up -d
 
 #Test
-sleep 20
-set +e
-echo "Extract IP"
-DOCKERMCHIP=$(docker-machine ip docker-eps || echo "127.0.0.1")
 URLTEST="http://${DOCKERMCHIP}:8089/retoibm/sumar/180/300"
+
 echo "Test endpoint $URLTEST"
+set +e
+RETRYCOUNTER=5
+while [ $RETRYCOUNTER -gt 0 ]
+do
 #wget -q -O - "${URLTEST}"
 curl -Ss -X GET $URLTEST | jq
-echo ""
+RETRYCOUNTER=$[$RETRYCOUNTER-1]
+sleep 2
+done
+
+echo "End endpoint"
 
 #Monitoring
 docker-compose ps
