@@ -38,7 +38,7 @@ DOCKERMCHIP=$(docker-machine ip docker-eps || echo "127.0.0.1")
 URLTEST="http://${DOCKERMCHIP}:8089/retoibm/sumar/180/300"
 echo "Test endpoint $URLTEST"
 #wget -q -O - "${URLTEST}"
-curl -Ss -X GET "${URLTEST}" | jq
+curl -Ss -X GET $URLTEST | jq
 echo ""
 
 #Monitoring
