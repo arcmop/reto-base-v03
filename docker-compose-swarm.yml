@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   postgres-service-container:
@@ -11,7 +11,9 @@ services:
     ports:
       - "5432"
     volumes:
-      - ${PWD}/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - type: bind
+        source: /c/Users/mastermind/TALLER_EPSGRAU/devops04/reto-base-v03/db/init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
     networks:
       - netmsbackend
   java-microservicio:
