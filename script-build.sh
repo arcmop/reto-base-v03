@@ -20,3 +20,5 @@ cd ..
 cd docker-ms
 docker build -t test01:v01 .
 cd ..
+
+sed "s/SERVER_TO_TEST/${DOCKERMCHIP}/g" ${RUTABASE}/frontend-ui/index_base.html > ${RUTABASE}/frontend-ui/index.html
