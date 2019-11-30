@@ -10,6 +10,6 @@ RUTABASE=$PWD
 
 #Deployment
 docker-compose down --remove-orphans
-docker-compose build -f docker-compose-swarm.yml
+docker-compose -f docker-compose-swarm.yml build
 
 echo "Proceso Completo"
