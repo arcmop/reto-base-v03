@@ -47,11 +47,11 @@ public class ControladorHolaMundo {
             String hostname = ip.getHostName();
             methodResult.put("hostname", hostname);
 
-            conn = DriverManager.getConnection(urlEnd, pgUser, pgPwd);
-            System.out.println("Connected to the PostgreSQL server successfully.");
             operationResult = sum01 + sum02;
             methodResult.put("resultado", String.valueOf(operationResult));
-
+            
+            conn = DriverManager.getConnection(urlEnd, pgUser, pgPwd);
+            System.out.println("Connected to the PostgreSQL server successfully.");
             conn.createStatement().executeUpdate(String.format(query, sum01.toString(), sum02.toString(), operationResult.toString()));
             conn.close();
             wasInserted = true;
