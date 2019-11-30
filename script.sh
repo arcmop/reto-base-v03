@@ -4,8 +4,8 @@ export PG_USER=pguser01
 export PG_PWD=pgpassword
 export PG_DB=pgdatabase
 
-eval $(docker-machine env docker-eps)
-DOCKERMCHIP=$(docker-machine ip docker-eps || echo "127.0.0.1")
+eval $(docker-machine env docker-taller04)
+DOCKERMCHIP=$(docker-machine ip docker-taller04 || echo "127.0.0.1")
 RUTABASE=$PWD
 
 #Clean workspace
