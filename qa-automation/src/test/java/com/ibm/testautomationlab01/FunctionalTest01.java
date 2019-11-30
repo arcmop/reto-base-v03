@@ -27,11 +27,13 @@ public class FunctionalTest01 {
     }
 
     @Test
-    public void test01() throws InterruptedException {
+    public void test01() throws Exception {
         System.setProperty("webdriver.chrome.driver", "C:\\Aplicaciones\\chromedriver_win32\\chromedriver.exe");
         WebDriver chromeExecutor = new ChromeDriver();
 
-        chromeExecutor.get("http://192.168.99.101:8090/");
+        String ip2Test = System.getenv("DOCKERMCHIP");
+
+        chromeExecutor.get("http://"+ip2Test+":8090/");
         chromeExecutor.findElement(By.id("sumando01")).click();
         chromeExecutor.findElement(By.id("sumando01")).sendKeys("160");
         chromeExecutor.findElement(By.id("sumando02")).click();
@@ -41,7 +43,7 @@ public class FunctionalTest01 {
         WebElement we = chromeExecutor.findElement(By.id("txtresult"));
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             String result = we.getAttribute("value");
             Assert.assertEquals("369", result);
         } catch (Exception e) {
@@ -51,13 +53,15 @@ public class FunctionalTest01 {
     }
 
     @Test
-    public void test02() throws InterruptedException {
+    public void test02() throws Exception {
         File file = new File("C:\\Aplicaciones\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
         System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
 
         WebDriver phamJSExecutor = new PhantomJSDriver();
 
-        phamJSExecutor.get("http://192.168.99.101:8090/");
+        String ip2Test = System.getenv("DOCKERMCHIP");
+        
+        phamJSExecutor.get("http://"+ip2Test+":8090/");
         phamJSExecutor.findElement(By.id("sumando01")).click();
         phamJSExecutor.findElement(By.id("sumando01")).sendKeys("58");
         phamJSExecutor.findElement(By.id("sumando02")).click();
