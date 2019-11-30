@@ -63,6 +63,17 @@ services:
     command: [nginx-debug, '-g', 'daemon off;']
     ports:
       - "8090:80"
+  portainer-monitor:
+    image: portainer/portainer:1.22.2
+    restart: always
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data portainer/portainer
 networks:
-    netlbfront:
-    netmsbackend:
+  netlbfront:
+  netmsbackend:
+volumes:
+  portainer_data:
